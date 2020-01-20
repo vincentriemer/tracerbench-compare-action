@@ -64,7 +64,8 @@ async function normalizeConfig(config = {}) {
         return v;
     }
     async function add(prop, value) {
-        config[prop] = config[prop] !== undefined ? config[prop] : await val(value);
+        const defaultValue = value != null ? await val(value) : undefined;
+        config[prop] = config[prop] !== undefined ? config[prop] : defaultValue;
     }
 
     await add('use-yarn', true);
@@ -86,7 +87,7 @@ async function normalizeConfig(config = {}) {
     await add('runtime-stats', false);
     await add('report', true);
     await add('headless', true);
-    await add('regression-threshold', 50);
+    await add('regression-threshold', 100);
     await add('clean-after-analyze', () => {
       // if we have a meaningful ref we will default to cleaning up
       // else default to not cleaning up since likely this is CI merge commit
@@ -101,8 +102,8 @@ function buildCompareCommand(config) {
     ` --experimentURL ${config['experiment-url']}` +
     ` --controlURL ${config['control-url']}` +
     ` --regressionThreshold ${config['regression-threshold']}` +
-    ` --fidelity ${config.fidelity}` +
-    ` --markers ${config.markers}` +
+    (config.fidelity != null ? ` --fidelity ${config.fidelity}` : "") +
+    (config.markers != null ? ` --markers ${config.markers}` : "") +
     ` --debug`;
 
   if (config.headless) {

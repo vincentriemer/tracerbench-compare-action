@@ -19,6 +19,7 @@ const configProperties = [
   'control-url',
   'experiment-url',
   'markers'
+  'fidelity'
 ];
 const config = {};
 
