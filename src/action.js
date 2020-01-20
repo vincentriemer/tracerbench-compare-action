@@ -35,11 +35,14 @@ configProperties.forEach(prop => {
 });
 
 async function main() {
+  let failed = false;
   try {
     await analyze(config);
   } catch (e) {
     core.setFailed(e.message);
+    failed = true;
   }
+  process.exit(failed ? 1 : 0);
 }
 
 main();
