@@ -51,8 +51,7 @@ async function getRefForHEAD() {
     let { stdout } = await execWithLog(`git symbolic-ref -q --short HEAD || git describe --tags --exact-match`);
     return stdout;
   } catch (e) {
-    let { stdout } = execWithLog(`git rev-parse --short=8 HEAD`);
-    return stdout;
+    return `git rev-parse --short=8 HEAD`;
   }
 }
 

@@ -7,6 +7,7 @@ const configProperties = [
   'repo-token',
   'control-sha',
   'experiment-sha',
+  'experiment-ref',
   'build-control',
   'build-experiment',
   'control-build-command',
