@@ -49,10 +49,10 @@ async function getShaForRef(ref) {
 async function getRefForHEAD() {
   try {
     let { stdout } = await execWithLog(`git symbolic-ref -q --short HEAD || git describe --tags --exact-match`);
-    
     return stdout;
   } catch (e) {
-    return `git rev-parse --short=8 HEAD`;
+    let { stdout } = execWithLog(`git rev-parse --short=8 HEAD`);
+    return stdout;
   }
 }
 
